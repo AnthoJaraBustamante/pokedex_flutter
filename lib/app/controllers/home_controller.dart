@@ -75,6 +75,12 @@ class HomeController extends GetxController {
 
   void nextPage() {
     id = int.parse(idName);
+    if (id == 889) {
+      id = 1;
+      idName = id.toString();
+      getPokemon(idName);
+      return;
+    }
     id++;
     idName = id.toString();
     getPokemon(idName);
@@ -88,6 +94,12 @@ class HomeController extends GetxController {
 
   void previousPage() {
     id = int.parse(idName);
+    if (id == 1) {
+      id = 889;
+      idName = id.toString();
+      getPokemon(idName);
+      return;
+    }
     id--;
     idName = id.toString();
     getPokemon(idName);

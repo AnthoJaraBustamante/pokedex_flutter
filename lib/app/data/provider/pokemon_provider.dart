@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/instance_manager.dart';
 import 'package:pokedex_flutter/app/data/models/pokemon_model.dart';
-import 'package:pokedex_flutter/app/ui/utils/customed_toast.dart';
 
 class PokemonApi {
   final Dio _dio = Get.find<Dio>();
@@ -13,11 +12,10 @@ class PokemonApi {
       response = await _dio.get('pokemon/$id');
     } on DioError catch (e) {
       if (e.response!.statusCode == 404) {
-        customedToast(e.response!.statusCode.toString());
         return <String, dynamic>{
           'pokemon': null,
           'success': false,
-          'message': e.response!,
+          'message': e.response!.data as String,
         };
       }
       const String checkInternetMessage =
