@@ -19,7 +19,7 @@ class MainColor {
   static Color orange = fromHex('#ffcc02');
   static Color blue = fromHex('#519afb');
 
-  static Color screen = fromHex('#b0b0b0');
+  static Color screen = fromHex('#181B1D');
 }
 
 Color fromHex(String hexString) {

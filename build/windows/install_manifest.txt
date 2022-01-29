@@ -1,0 +1,10 @@
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/icudtl.dat
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/flutter_windows.dll
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/assets/error.gif
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/assets/loading.gif
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+D:/PROYECTOS PERSONALES/pokedex_flutter/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf

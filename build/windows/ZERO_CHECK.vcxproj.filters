@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\PROYECTOS PERSONALES\pokedex_flutter\build\windows\CMakeFiles\082d08bf81c437b4414b90fbe89406ea\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6D72F5E9-CFF0-31EF-947A-C8F81433A539}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

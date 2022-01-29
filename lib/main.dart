@@ -27,7 +27,7 @@ void main() {
           getPages: AppPages.pages,
           home: const HomePage(),
           initialBinding: HomeBinding(),
-          initialRoute: Routes.splash,
+          initialRoute: Routes.home,
         );
       },
     ),

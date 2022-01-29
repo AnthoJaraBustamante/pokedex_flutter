@@ -296,7 +296,8 @@ class Home {
         frontFemale: json['front_female'] == null
             ? null
             : json['front_female'] as String,
-        frontShiny: json['front_shiny'] as String,
+        frontShiny:
+            json['front_shiny'] == null ? null : json['front_shiny'] as String,
         frontShinyFemale: json['front_shiny_female'] == null
             ? null
             : json['front_shiny_female'] as String,

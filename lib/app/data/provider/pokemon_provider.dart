@@ -6,21 +6,37 @@ import 'package:pokedex_flutter/app/ui/utils/customed_toast.dart';
 class PokemonApi {
   final Dio _dio = Get.find<Dio>();
 
-  Future<Pokemon?> getPokemon(int id) async {
+  Future<Map<String, dynamic>> getPokemon(String id) async {
     Pokemon? pokemon;
     late Response<dynamic> response;
     try {
       response = await _dio.get('pokemon/$id');
-      if (response.statusCode == 200) {
-        return pokemon =
-            Pokemon.fromJson(response.data as Map<String, dynamic>);
-      }
     } on DioError catch (e) {
       if (e.response!.statusCode == 404) {
         customedToast(e.response!.statusCode.toString());
+        return <String, dynamic>{
+          'pokemon': null,
+          'success': false,
+          'message': e.response!,
+        };
       }
-      throw e;
+      const String checkInternetMessage =
+          'Revise su conexión a Internet y vuelva a intentarlo.';
+      return <String, dynamic>{
+        'pokemon': null,
+        'success': true,
+        'message': e.type.name == 'other'
+            ? checkInternetMessage
+            : e.type.name == 'connectTimeout'
+                ? 'Se acabo el tiempo de espera. $checkInternetMessage'
+                : e.message,
+      };
     }
-    return pokemon;
+    return <String, dynamic>{
+      'pokemon': pokemon =
+          Pokemon.fromJson(response.data as Map<String, dynamic>),
+      'success': true,
+      'message': pokemon.name,
+    };
   }
 }

@@ -1,37 +1,97 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:get/get.dart';
 import 'package:pokedex_flutter/app/data/models/pokemon_model.dart';
 import 'package:pokedex_flutter/app/data/services/pokemon_service.dart';
+import 'package:pokedex_flutter/app/ui/utils/customed_toast.dart';
 
 class HomeController extends GetxController {
   final PokemonService _pokemonService = Get.find<PokemonService>();
   Pokemon? pokemon;
-  String? frontImage;
-  String name = '';
+  bool found = false;
+  String idName = '1';
+  int id = 1;
+  double value = 0;
+
+  String get attack {
+    return pokemon!.stats
+            ?.firstWhere((Stat stat) => stat.stat?.name == 'attack')
+            .baseStat
+            ?.toString() ??
+        '';
+  }
+
+  String get defense {
+    return pokemon!.stats
+            ?.firstWhere((Stat stat) => stat.stat?.name == 'defense')
+            .baseStat
+            ?.toString() ??
+        '';
+  }
+
+  String get hp {
+    return pokemon!.stats
+            ?.firstWhere((Stat stat) => stat.stat?.name == 'hp')
+            .baseStat
+            ?.toString() ??
+        '';
+  }
+
+  String get spAttack {
+    return pokemon!.stats
+            ?.firstWhere((Stat stat) => stat.stat?.name == 'special-attack')
+            .baseStat
+            ?.toString() ??
+        '';
+  }
+
+  String get spDefense {
+    return pokemon!.stats
+            ?.firstWhere((Stat stat) => stat.stat?.name == 'special-defense')
+            .baseStat
+            ?.toString() ??
+        '';
+  }
+
+  String get speed {
+    return pokemon!.stats
+            ?.firstWhere((Stat stat) => stat.stat?.name == 'speed')
+            .baseStat
+            ?.toString() ??
+        '';
+  }
+
+  Future<void> getPokemon(String id) async {
+    pokemon = null;
+    update(<Object>['pokemon']);
+    final Map<String, dynamic> response =
+        await _pokemonService.getService(id: id);
+    found = response['success'] as bool;
+    if (found) {
+      pokemon = response['pokemon'] as Pokemon;
+      update(<Object>['pokemon']);
+      return;
+    }
+    customedToast(response['message'] as String);
+  }
+
+  void nextPage() {
+    id = int.parse(idName);
+    id++;
+    idName = id.toString();
+    getPokemon(idName);
+  }
 
   @override
   void onInit() {
     super.onInit();
-    getRandomPokemon();
+    getPokemon(idName);
   }
 
-  Future<void> getPokemon({int? id}) async {
-    print(id);
-    pokemon = await _pokemonService.getService(id: id ?? 1);
-    frontImage = null;
-
-    frontImage = pokemon?.sprites?.frontDefault;
-
-    inspect(frontImage);
-    update(<Object>['pokemon']);
+  void previousPage() {
+    id = int.parse(idName);
+    id--;
+    idName = id.toString();
+    getPokemon(idName);
   }
 
-  Future<void> getRandomPokemon() async {
-    final Random random = Random();
-    pokemon = null;
-    update(<Object>['pokemon']);
-    await getPokemon(id: random.nextInt(807));
-  }
+  void stats() {}
 }
