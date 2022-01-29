@@ -29,7 +29,15 @@
 .packages
 .pub-cache/
 .pub/
-/build/
+/build/4df5c02ed0218c21143fcef7c2506f62
+/build/app
+/build/flutter_assets
+/build/kotlin
+/build/path_provider_android
+/build/sqflite
+/build/4f2a58af27abc49ecf55570043bbf938.cache.dill.track
+
+
 
 # Web related
 lib/generated_plugin_registrant.dart
