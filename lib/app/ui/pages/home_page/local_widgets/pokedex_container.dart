@@ -1,4 +1,9 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pokedex_flutter/app/controllers/home_controller.dart';
 import 'package:pokedex_flutter/app/ui/theme/color_theme.dart';
 // ignore: implementation_imports
 import 'package:resize/src/resizeExtension.dart';
@@ -52,7 +57,6 @@ class PokedexLeft extends StatelessWidget {
               height: 31.rem / 2,
               width: 23.rem,
               margin: const EdgeInsets.only(top: 20, bottom: 20),
-              padding: EdgeInsets.all(0.8.rem),
               decoration: BoxDecoration(
                 color: MainColor.screen,
                 border: Border.all(
@@ -63,14 +67,54 @@ class PokedexLeft extends StatelessWidget {
                   topRight: Radius.circular(10),
                 ),
               ),
+              child: GetBuilder<HomeController>(
+                id: 'pokemon',
+                builder: (_) {
+                  return Container(
+                    child: _.pokemon == null
+                        ? Container(
+                            color: Colors.red,
+                            child: Image.asset(
+                              'assets/error.gif',
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              BounceInUp(
+                                child: CachedNetworkImage(
+                                  imageUrl: _.frontImage!,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ),
+                              Text(
+                                GetUtils.capitalizeFirst(
+                                      _.pokemon!.name ?? '',
+                                    ) ??
+                                    '',
+                              ),
+                            ],
+                          ),
+                  );
+                },
+              ),
             ),
             Row(
               children: <Widget>[
-                Light(
-                  width: 40,
-                  height: 40,
-                  color: MainColor.blue,
-                  margin: margin,
+                GetBuilder<HomeController>(
+                  builder: (_) {
+                    return Light(
+                      width: 40,
+                      height: 40,
+                      color: MainColor.blue,
+                      margin: margin,
+                      onTap: () {
+                        _.getRandomPokemon();
+                      },
+                    );
+                  },
                 ),
                 Light(
                   width: 80,
@@ -133,6 +177,7 @@ class Light extends StatelessWidget {
     this.height,
     required this.color,
     this.margin,
+    this.onTap,
     this.isLarge = false,
   }) : super(key: key);
   final double? width;
@@ -140,26 +185,29 @@ class Light extends StatelessWidget {
   final Color color;
   final EdgeInsetsGeometry? margin;
   final bool isLarge;
-
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      width: width ?? 20,
-      height: height ?? 20,
-      decoration: BoxDecoration(
-        color: color,
-        shape: isLarge ? BoxShape.rectangle : BoxShape.circle,
-        border: Border.all(
-          width: 3,
-        ),
-        borderRadius: isLarge ? BorderRadius.circular(20) : null,
-        boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: Color.fromRGBO(255, 255, 255, 0.5),
-            offset: Offset(-2, 2),
+    return InkWell(
+      onTap: onTap ?? () {},
+      child: Container(
+        margin: margin,
+        width: width ?? 20,
+        height: height ?? 20,
+        decoration: BoxDecoration(
+          color: color,
+          shape: isLarge ? BoxShape.rectangle : BoxShape.circle,
+          border: Border.all(
+            width: 3,
           ),
-        ],
+          borderRadius: isLarge ? BorderRadius.circular(20) : null,
+          boxShadow: const <BoxShadow>[
+            BoxShadow(
+              color: Color.fromRGBO(255, 255, 255, 0.5),
+              offset: Offset(-2, 2),
+            ),
+          ],
+        ),
       ),
     );
   }

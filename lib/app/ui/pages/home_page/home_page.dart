@@ -4,7 +4,7 @@ import 'package:pokedex_flutter/app/controllers/home_controller.dart';
 import 'package:pokedex_flutter/app/ui/pages/home_page/local_widgets/pokedex_container.dart';
 import 'package:pokedex_flutter/app/ui/theme/color_theme.dart';
 
-class HomePage extends GetView<HomeController> {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -12,11 +12,17 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
       body: Container(
         color: MainColor.darkRed,
-        child: Stack(
-          children: <Widget>[
-            const PokedexContainer(),
-            Container(),
-          ],
+        child: GetBuilder<HomeController>(
+          init: HomeController(),
+          initState: (_) {},
+          builder: (_) {
+            return Stack(
+              children: <Widget>[
+                const PokedexContainer(),
+                Container(),
+              ],
+            );
+          },
         ),
       ),
     );
