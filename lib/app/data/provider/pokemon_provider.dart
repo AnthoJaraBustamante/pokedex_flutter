@@ -24,7 +24,7 @@ class PokemonApi {
           'Revise su conexión a Internet y vuelva a intentarlo.';
       return <String, dynamic>{
         'pokemon': null,
-        'success': true,
+        'success': false,
         'message': e.type.name == 'other'
             ? checkInternetMessage
             : e.type.name == 'connectTimeout'
