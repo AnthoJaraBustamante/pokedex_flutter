@@ -16,7 +16,7 @@ void main() {
       DeviceOrientation.portraitDown,
     ],
   );
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   DependencyInjection.init();
   runApp(
     Resize(

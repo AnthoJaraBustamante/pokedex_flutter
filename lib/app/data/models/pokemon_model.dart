@@ -492,9 +492,9 @@ class Sprites {
   final String? frontFemale;
   final String? frontShiny;
   final String? frontShinyFemale;
-  final Other? other;
-  final Versions? versions;
-  final Sprites? animated;
+  // final Other? other;
+  // final Versions? versions;
+  // final Sprites? animated;
   Sprites({
     this.backDefault,
     this.backFemale,
@@ -504,9 +504,9 @@ class Sprites {
     this.frontFemale,
     this.frontShiny,
     this.frontShinyFemale,
-    this.other,
-    this.versions,
-    this.animated,
+    // this.other,
+    // this.versions,
+    // this.animated,
   });
   factory Sprites.fromJson(Map<String, dynamic> json) => Sprites(
         backDefault: json['back_default'] == null
@@ -530,17 +530,17 @@ class Sprites {
         frontShinyFemale: json['front_shiny_female'] == null
             ? null
             : json['front_shiny_female'] as String,
-        other: json['other'] == null
-            ? null
-            : Other.fromJson(
-                json['other'] as Map<String, dynamic>,
-              ),
-        versions: json['versions'] == null
-            ? null
-            : Versions.fromJson(json['versions'] as Map<String, dynamic>),
-        animated: json['animated'] == null
-            ? null
-            : Sprites.fromJson(json['animated'] as Map<String, dynamic>),
+        // other: json['other'] == null
+        //     ? null
+        //     : Other.fromJson(
+        //         json['other'] as Map<String, dynamic>,
+        //       ),
+        // versions: json['versions'] == null
+        //     ? null
+        //     : Versions.fromJson(json['versions'] as Map<String, dynamic>),
+        // animated: json['animated'] == null
+        //     ? null
+        //     : Sprites.fromJson(json['animated'] as Map<String, dynamic>),
       );
 }
 
