@@ -43,6 +43,7 @@ class BottomLeftLightsSearchField extends StatelessWidget {
     return Column(
       children: <Widget>[
         GetBuilder<HomeController>(
+          id: 'bottom_lights',
           builder: (_) {
             return Row(
               children: <Widget>[
@@ -51,6 +52,8 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   height: 40,
                   color: MainColor.blue,
                   margin: margin,
+                  icon: _.flipped ? _.flipIcon : _.flip2Icon,
+                  onTap: () => _.changeSprite(),
                 ),
                 Light(
                   width: 80,
@@ -58,6 +61,7 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   color: MainColor.green,
                   margin: margin,
                   isLarge: true,
+                  icon: _.prevDownActive ? _.prevDownIcon : _.prevIcon,
                   onTap: () {
                     _.previousPokemon();
                   },
@@ -71,6 +75,7 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   color: MainColor.yellow,
                   margin: margin,
                   isLarge: true,
+                  icon: _.nextDownActive ? _.nextDownIcon : _.nextIcon,
                   onTap: () {
                     _.nextPokemon();
                   },

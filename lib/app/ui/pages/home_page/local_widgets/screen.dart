@@ -66,7 +66,7 @@ class Screen extends StatelessWidget {
                     ),
                     BounceInUp(
                       child: CachedNetworkImage(
-                        imageUrl: _.pokemon!.sprites!.frontDefault!,
+                        imageUrl: _.sprites[_.spriteIndex]!,
                         width: 100,
                         height: 100,
                         repeat: ImageRepeat.repeat,
