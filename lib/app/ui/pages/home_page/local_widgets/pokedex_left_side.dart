@@ -23,7 +23,7 @@ class PokedexLeft extends StatelessWidget {
                 Screen(),
               ],
             ),
-            BottomLeftLightsSearchField(),
+            const BottomLeftLightsSearchField(),
           ],
         ),
       ),

@@ -26,27 +26,29 @@ class Light extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
-      onTapDown: onTapDown,
-      onTapCancel: onTapCancel,
       onTapUp: onTapUp,
-      child: Container(
-        margin: margin,
-        width: width ?? 20,
-        height: height ?? 20,
-        decoration: BoxDecoration(
-          color: color,
-          shape: isLarge ? BoxShape.rectangle : BoxShape.circle,
-          border: Border.all(
-            width: 3,
-          ),
-          borderRadius: isLarge ? BorderRadius.circular(20) : null,
-          boxShadow: const <BoxShadow>[
-            BoxShadow(
-              color: Color.fromRGBO(255, 255, 255, 0.5),
-              offset: Offset(-2, 2),
+      onTapCancel: onTapCancel,
+      child: InkWell(
+        onTap: onTap,
+        onTapDown: onTapDown,
+        child: Container(
+          margin: margin,
+          width: width ?? 20,
+          height: height ?? 20,
+          decoration: BoxDecoration(
+            color: color,
+            shape: isLarge ? BoxShape.rectangle : BoxShape.circle,
+            border: Border.all(
+              width: 3,
             ),
-          ],
+            borderRadius: isLarge ? BorderRadius.circular(20) : null,
+            boxShadow: const <BoxShadow>[
+              BoxShadow(
+                color: Color.fromRGBO(255, 255, 255, 0.5),
+                offset: Offset(-2, 2),
+              ),
+            ],
+          ),
         ),
       ),
     );
