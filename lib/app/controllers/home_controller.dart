@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pokedex_flutter/app/data/models/pokemon_model.dart';
 import 'package:pokedex_flutter/app/data/services/pokemon_service.dart';
 import 'package:pokedex_flutter/app/ui/utils/customed_toast.dart';
+import 'package:pokedex_flutter/main.dart';
 
 class HomeController extends GetxController {
   final PokemonService _pokemonService = Get.find<PokemonService>();
@@ -13,15 +14,15 @@ class HomeController extends GetxController {
   final List<String?> sprites = <String?>[];
 
   bool found = false;
-  String idName = '1';
-  int currentId = 1;
+  String idName = prefs.idName;
+  late int currentId;
   double value = 0;
   int spriteIndex = 0;
 
   String prevIcon = 'assets/tap.png';
   String prevDownIcon = 'assets/tapdown.png';
   String nextIcon = 'assets/nextTap.png';
-  String nextDownIcon = 'assets/nexttapdown.png';
+  String nextDownIcon = 'assets/nextTapdown.png';
   String flipIcon = 'assets/flip.png';
   String flip2Icon = 'assets/flip2.png';
 
@@ -36,8 +37,8 @@ class HomeController extends GetxController {
     if (pokemon!.sprites?.frontDefault != null) {
       sprites.add(pokemon!.sprites?.frontDefault);
     }
-    if (pokemon!.sprites?.backDefault != null) {
-      sprites.add(pokemon!.sprites?.backDefault);
+    if (pokemon!.sprites?.frontShiny != null) {
+      sprites.add(pokemon!.sprites?.frontShiny);
     }
     // if (pokemon!.sprites?.frontFemale != null) {
     //   sprites.add(pokemon!.sprites?.frontFemale);
@@ -108,6 +109,7 @@ class HomeController extends GetxController {
       pokemon = response['pokemon'] as Pokemon;
       currentId = pokemon!.id!;
       idName = currentId.toString();
+      prefs.idName = idName;
       getSprites();
       update(<Object>['pokemon']);
       return;

@@ -6,9 +6,10 @@ import 'package:pokedex_flutter/app/routes/app_pages.dart';
 import 'package:pokedex_flutter/app/routes/routes.dart';
 import 'package:pokedex_flutter/app/ui/dependency_injection.dart';
 import 'package:pokedex_flutter/app/ui/pages/home_page/home_page.dart';
+import 'package:pokedex_flutter/app/ui/utils/user_preferences.dart';
 import 'package:resize/resize.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     <DeviceOrientation>[
@@ -17,6 +18,8 @@ void main() {
     ],
   );
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  final UserPreferences prefs = UserPreferences();
+  await prefs.initPrefs();
   DependencyInjection.init();
   runApp(
     Resize(
@@ -33,3 +36,5 @@ void main() {
     ),
   );
 }
+
+final UserPreferences prefs = UserPreferences();
