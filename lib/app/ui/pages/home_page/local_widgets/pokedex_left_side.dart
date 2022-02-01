@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pokedex_flutter/app/controllers/home_controller.dart';
 import 'package:pokedex_flutter/app/ui/pages/home_page/local_widgets/light.dart';
 import 'package:pokedex_flutter/app/ui/pages/home_page/local_widgets/screen.dart';
+import 'package:pokedex_flutter/app/ui/pages/home_page/local_widgets/search_field_container.dart';
 import 'package:pokedex_flutter/app/ui/theme/color_theme.dart';
 import 'package:resize/src/resizeExtension.dart';
 
@@ -54,6 +55,9 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   margin: margin,
                   icon: _.flipped ? _.flipIcon : _.flip2Icon,
                   onTap: () => _.changeSprite(),
+                  onTapDown: _.flipTapDown,
+                  onTapUp: _.onTapUp,
+                  onTapCancel: () => _.onTapCancel(),
                 ),
                 Light(
                   width: 80,
@@ -76,9 +80,7 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   margin: margin,
                   isLarge: true,
                   icon: _.nextDownActive ? _.nextDownIcon : _.nextIcon,
-                  onTap: () {
-                    _.nextPokemon();
-                  },
+                  onTap: () => _.nextPokemon(),
                   onTapDown: _.nextTapDown,
                   onTapUp: _.onTapUp,
                   onTapCancel: () => _.onTapCancel(),
@@ -87,6 +89,8 @@ class BottomLeftLightsSearchField extends StatelessWidget {
             );
           },
         ),
+        SizedBox(height: 1.4.rem),
+        const SearchFieldContainer(),
       ],
     );
   }

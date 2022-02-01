@@ -18,7 +18,7 @@ class PokedexContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: MainColor.red,
           border: Border.all(
-            width: 5,
+            width: 2,
           ),
           borderRadius: BorderRadius.circular(10),
           boxShadow: const <BoxShadow>[

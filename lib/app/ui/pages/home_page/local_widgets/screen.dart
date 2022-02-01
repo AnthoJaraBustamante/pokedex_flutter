@@ -12,13 +12,14 @@ class Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.antiAlias,
       height: 31.rem / 2,
       width: 23.rem,
       margin: const EdgeInsets.only(top: 20, bottom: 20),
       decoration: BoxDecoration(
         color: MainColor.screen,
         border: Border.all(
-          width: 5,
+          width: 2,
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
@@ -45,56 +46,75 @@ class Screen extends StatelessWidget {
                     ),
             );
           } else {
-            return Column(
+            return Stack(
               children: <Widget>[
-                Text(
-                  GetUtils.capitalizeFirst(
-                    _.pokemon!.name ?? '',
-                  )!,
-                  style: GoogleFonts.mochiyPopOne(
-                    fontSize: 20,
-                    color: Colors.white,
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: 0.8.rem, vertical: 0.1.rem),
+                  alignment: Alignment.bottomRight,
+                  height: 31.rem / 2,
+                  width: 23.rem,
+                  child: Text(
+                    '# ${_.pokemon!.id!}',
+                    style: GoogleFonts.mochiyPopOne(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 1.rem,
-                ),
-                Row(
+                Column(
                   children: <Widget>[
-                    SizedBox(
-                      width: 1.rem,
-                    ),
-                    BounceInUp(
-                      child: CachedNetworkImage(
-                        imageUrl: _.sprites[_.spriteIndex]!,
-                        width: 100,
-                        height: 100,
-                        repeat: ImageRepeat.repeat,
-                        progressIndicatorBuilder: (
-                          BuildContext context,
-                          String url,
-                          DownloadProgress downloadProgress,
-                        ) {
-                          return Image.asset(
-                            'assets/loading.gif',
-                            width: 100,
-                            height: 100,
-                          );
-                        },
+                    Text(
+                      GetUtils.capitalizeFirst(
+                        _.pokemon!.name ?? '',
+                      )!,
+                      style: GoogleFonts.mochiyPopOne(
+                        fontSize: 20,
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(
-                      width: 1.rem,
+                      height: 1.rem,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        StatsInfo(name: 'HP', base: _.hp),
-                        StatsInfo(name: 'Attack', base: _.attack),
-                        StatsInfo(name: 'Defense', base: _.defense),
-                        StatsInfo(name: 'Sp. Attack', base: _.spAttack),
-                        StatsInfo(name: 'Sp. Defense', base: _.spDefense),
-                        StatsInfo(name: 'Speed', base: _.speed),
+                        SizedBox(
+                          width: 1.rem,
+                        ),
+                        BounceInUp(
+                          child: CachedNetworkImage(
+                            imageUrl: _.sprites[_.spriteIndex]!,
+                            width: 100,
+                            height: 100,
+                            repeat: ImageRepeat.repeat,
+                            progressIndicatorBuilder: (
+                              BuildContext context,
+                              String url,
+                              DownloadProgress downloadProgress,
+                            ) {
+                              return Image.asset(
+                                'assets/loading.gif',
+                                width: 100,
+                                height: 100,
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 1.rem,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            StatsInfo(name: 'HP', base: _.hp),
+                            StatsInfo(name: 'Ataque', base: _.attack),
+                            StatsInfo(name: 'Defensa', base: _.defense),
+                            StatsInfo(
+                                name: 'Ataque Especial', base: _.spAttack),
+                            StatsInfo(
+                                name: 'Defensa Especial', base: _.spDefense),
+                            StatsInfo(name: 'Velocidad', base: _.speed),
+                          ],
+                        ),
                       ],
                     ),
                   ],

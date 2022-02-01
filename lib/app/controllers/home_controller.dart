@@ -14,7 +14,7 @@ class HomeController extends GetxController {
 
   bool found = false;
   String idName = '1';
-  int id = 1;
+  int currentId = 1;
   double value = 0;
   int spriteIndex = 0;
 
@@ -24,6 +24,8 @@ class HomeController extends GetxController {
   String nextDownIcon = 'assets/nexttapdown.png';
   String flipIcon = 'assets/flip.png';
   String flip2Icon = 'assets/flip2.png';
+
+  late TextEditingController searchController;
 
   bool prevDownActive = false;
   bool nextDownActive = false;
@@ -37,12 +39,12 @@ class HomeController extends GetxController {
     if (pokemon!.sprites?.backDefault != null) {
       sprites.add(pokemon!.sprites?.backDefault);
     }
-    if (pokemon!.sprites?.frontFemale != null) {
-      sprites.add(pokemon!.sprites?.frontFemale);
-    }
-    if (pokemon!.sprites?.backFemale != null) {
-      sprites.add(pokemon!.sprites?.backFemale);
-    }
+    // if (pokemon!.sprites?.frontFemale != null) {
+    //   sprites.add(pokemon!.sprites?.frontFemale);
+    // }
+    // if (pokemon!.sprites?.backFemale != null) {
+    //   sprites.add(pokemon!.sprites?.backFemale);
+    // }
   }
 
   String get attack {
@@ -95,6 +97,7 @@ class HomeController extends GetxController {
 
   Future<void> getPokemon(String id) async {
     pokemon = null;
+    found = true;
     spriteIndex = 0;
     sprites.clear();
     update(<Object>['pokemon']);
@@ -103,10 +106,13 @@ class HomeController extends GetxController {
     found = response['success'] as bool;
     if (found) {
       pokemon = response['pokemon'] as Pokemon;
+      currentId = pokemon!.id!;
+      idName = currentId.toString();
       getSprites();
       update(<Object>['pokemon']);
       return;
     }
+    update(<Object>['pokemon']);
     customedToast(response['message'] as String);
   }
 
@@ -121,15 +127,15 @@ class HomeController extends GetxController {
   }
 
   void nextPokemon() {
-    id = int.parse(idName);
-    if (id == 889) {
-      id = 1;
-      idName = id.toString();
+    currentId = int.parse(idName);
+    if (currentId == 898) {
+      currentId = 1;
+      idName = currentId.toString();
       getPokemon(idName);
       return;
     }
-    id++;
-    idName = id.toString();
+    currentId++;
+    idName = currentId.toString();
     getPokemon(idName);
   }
 
@@ -141,9 +147,17 @@ class HomeController extends GetxController {
     });
   }
 
+  void flipTapDown(TapDownDetails details) {
+    timer = Timer.periodic(const Duration(milliseconds: 150), (Timer t) {
+      flipped = !flipped;
+      changeSprite();
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
+    searchController = TextEditingController();
     getPokemon(idName);
   }
 
@@ -159,15 +173,15 @@ class HomeController extends GetxController {
   }
 
   void previousPokemon() {
-    id = int.parse(idName);
-    if (id == 1) {
-      id = 889;
-      idName = id.toString();
+    currentId = int.parse(idName);
+    if (currentId == 1) {
+      currentId = 898;
+      idName = currentId.toString();
       getPokemon(idName);
       return;
     }
-    id--;
-    idName = id.toString();
+    currentId--;
+    idName = currentId.toString();
     getPokemon(idName);
   }
 
@@ -180,4 +194,8 @@ class HomeController extends GetxController {
   }
 
   void stats() {}
+
+  void searchPokemon() {
+    getPokemon(searchController.text.toLowerCase());
+  }
 }

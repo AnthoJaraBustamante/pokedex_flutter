@@ -35,7 +35,7 @@ class Light extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           border: Border.all(
-            width: 3,
+            width: 2,
           ),
           borderRadius:
               isLarge ? BorderRadius.circular(20) : BorderRadius.circular(500),
