@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pokedex_flutter/app/data/models/pokemon_model.dart';
 import 'package:pokedex_flutter/app/data/services/pokemon_service.dart';
@@ -12,42 +13,21 @@ class HomeController extends GetxController {
   late Timer timer;
   Pokemon? pokemon;
   final List<String?> sprites = <String?>[];
-
   bool found = false;
   String idName = prefs.idName;
   late int currentId;
   double value = 0;
   int spriteIndex = 0;
-
   String prevIcon = 'assets/tap.png';
   String prevDownIcon = 'assets/tapdown.png';
   String nextIcon = 'assets/nextTap.png';
   String nextDownIcon = 'assets/nextTapdown.png';
   String flipIcon = 'assets/flip.png';
   String flip2Icon = 'assets/flip2.png';
-
   late TextEditingController searchController;
-
   bool prevDownActive = false;
   bool nextDownActive = false;
   bool flipped = false;
-
-  void getSprites() {
-    sprites.clear();
-    if (pokemon!.sprites?.frontDefault != null) {
-      sprites.add(pokemon!.sprites?.frontDefault);
-    }
-    if (pokemon!.sprites?.frontShiny != null) {
-      sprites.add(pokemon!.sprites?.frontShiny);
-    }
-    // if (pokemon!.sprites?.frontFemale != null) {
-    //   sprites.add(pokemon!.sprites?.frontFemale);
-    // }
-    // if (pokemon!.sprites?.backFemale != null) {
-    //   sprites.add(pokemon!.sprites?.backFemale);
-    // }
-  }
-
   String get attack {
     return pokemon!.stats
             ?.firstWhere((Stat stat) => stat.stat?.name == 'attack')
@@ -96,6 +76,22 @@ class HomeController extends GetxController {
         '';
   }
 
+  void changeSprite() {
+    flipped = !flipped;
+    if (spriteIndex < sprites.length - 1) {
+      spriteIndex++;
+    } else {
+      spriteIndex = 0;
+    }
+    update(<Object>['pokemon', 'bottom_lights']);
+  }
+
+  void flipTapDown(TapDownDetails details) {
+    timer = Timer.periodic(const Duration(milliseconds: 150), (Timer t) {
+      changeSprite();
+    });
+  }
+
   Future<void> getPokemon(String id) async {
     pokemon = null;
     found = true;
@@ -118,17 +114,24 @@ class HomeController extends GetxController {
     customedToast(response['message'] as String);
   }
 
-  void changeSprite() {
-    flipped = !flipped;
-    if (spriteIndex < sprites.length - 1) {
-      spriteIndex++;
-    } else {
-      spriteIndex = 0;
+  void getSprites() {
+    sprites.clear();
+    if (pokemon!.sprites?.frontDefault != null) {
+      sprites.add(pokemon!.sprites?.frontDefault);
     }
-    update(<Object>['pokemon', 'bottom_lights']);
+    if (pokemon!.sprites?.frontShiny != null) {
+      sprites.add(pokemon!.sprites?.frontShiny);
+    }
+    // if (pokemon!.sprites?.frontFemale != null) {
+    //   sprites.add(pokemon!.sprites?.frontFemale);
+    // }
+    // if (pokemon!.sprites?.backFemale != null) {
+    //   sprites.add(pokemon!.sprites?.backFemale);
+    // }
   }
 
   void nextPokemon() {
+    HapticFeedback.vibrate();
     currentId = int.parse(idName);
     if (currentId == 898) {
       currentId = 1;
@@ -146,13 +149,6 @@ class HomeController extends GetxController {
     update(<Object>['bottom_lights']);
     timer = Timer.periodic(const Duration(milliseconds: 150), (Timer t) {
       nextPokemon();
-    });
-  }
-
-  void flipTapDown(TapDownDetails details) {
-    timer = Timer.periodic(const Duration(milliseconds: 150), (Timer t) {
-      flipped = !flipped;
-      changeSprite();
     });
   }
 
@@ -175,6 +171,7 @@ class HomeController extends GetxController {
   }
 
   void previousPokemon() {
+    HapticFeedback.vibrate();
     currentId = int.parse(idName);
     if (currentId == 1) {
       currentId = 898;
@@ -195,9 +192,13 @@ class HomeController extends GetxController {
     });
   }
 
-  void stats() {}
-
   void searchPokemon() {
+    if (searchController.text.isEmpty) {
+      return;
+    }
+    HapticFeedback.vibrate();
     getPokemon(searchController.text.toLowerCase());
   }
+
+  void stats() {}
 }
