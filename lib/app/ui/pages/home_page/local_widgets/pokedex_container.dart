@@ -13,7 +13,7 @@ class PokedexContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       child: Container(
-        height: 31.rem,
+        height: 32.rem,
         width: 23.rem,
         decoration: BoxDecoration(
           color: MainColor.red,

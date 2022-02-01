@@ -49,8 +49,8 @@ class BottomLeftLightsSearchField extends StatelessWidget {
             return Row(
               children: <Widget>[
                 Light(
-                  width: 40,
-                  height: 40,
+                  width: 50,
+                  height: 50,
                   color: MainColor.blue,
                   margin: margin,
                   icon: _.flipped ? _.flipIcon : _.flip2Icon,
@@ -60,8 +60,8 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   onTapCancel: () => _.onTapCancel(),
                 ),
                 Light(
-                  width: 80,
-                  height: 30,
+                  width: 90,
+                  height: 40,
                   color: MainColor.green,
                   margin: margin,
                   isLarge: true,
@@ -74,8 +74,8 @@ class BottomLeftLightsSearchField extends StatelessWidget {
                   onTapCancel: () => _.onTapCancel(),
                 ),
                 Light(
-                  width: 80,
-                  height: 30,
+                  width: 90,
+                  height: 40,
                   color: MainColor.yellow,
                   margin: margin,
                   isLarge: true,

@@ -15,7 +15,7 @@ class PokemonApi {
         return <String, dynamic>{
           'pokemon': null,
           'success': false,
-          'message': e.response!.data as String,
+          'message': 'No existe',
         };
       }
       const String checkInternetMessage =
