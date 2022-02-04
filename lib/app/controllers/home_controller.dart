@@ -94,8 +94,8 @@ class HomeController extends GetxController {
 
   Future<void> getPokemon(String id) async {
     pokemon = null;
-    found = true;
     spriteIndex = 0;
+    found = true;
     sprites.clear();
     update(<Object>['pokemon']);
     final Map<String, dynamic> response =
